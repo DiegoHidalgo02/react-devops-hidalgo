@@ -1,0 +1,22 @@
+name: Build app React
+on:
+  push:
+    branches: #devo essere in una branch specifica
+      - development
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+ 
+      - name: Setup node #Dato che nella macchina virtuale non c'è node installato, utilizziamo una action creata da altri
+        uses: actions/setup-node@v3 #action creata da altri che installa 
+        with:
+          node-version: 18.x #specifico la versione di node
+      
+      - name: Install dependencies #Dato che le dipendenze non sono presenti nella macchina virtuale devo installarle
+        run: npm install
+      
+      - name: Build app 
+        run: npm run build
