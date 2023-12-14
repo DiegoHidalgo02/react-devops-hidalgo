@@ -20,3 +20,21 @@ jobs:
       
       - name: Build app 
         run: npm run build
+  
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+    
+      - name: Setup node #Dato che nella macchina virtuale non c'è node installato, utilizziamo una action creata da altri
+        uses: actions/setup-node@v3 #action creata da altri che installa 
+        with:
+          node-version: 18.x
+      
+      - name: install dependecies
+        run: npm install
+      
+      - name: Test app
+        run: npm run test
